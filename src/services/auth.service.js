@@ -2,7 +2,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userRepository = require('../repositories/user.repository');
-const secretKey = 'your_jwt_secret';
 
 class AuthService {
     async signupUser(userData) {
@@ -35,7 +34,7 @@ class AuthService {
             throw new Error('Incorrect password');
         }
 
-        const token = jwt.sign({ email: user.email, id: user.id }, secretKey, { expiresIn: '1h' });
+        const token = jwt.sign({ email: user.email, id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         return { token };
     }
 }

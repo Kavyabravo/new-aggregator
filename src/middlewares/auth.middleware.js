@@ -5,7 +5,7 @@ const authenticateUser = (req, res, next) => {
     if (!token) return res.status(401).json({ message: 'No token provided' });
 
     try {
-        const decoded = jwt.verify(token, 'your_jwt_secret');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = { email: decoded.email, id: decoded.id };
         next();
     } catch (error) {
